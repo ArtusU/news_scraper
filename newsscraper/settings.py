@@ -1,11 +1,14 @@
 import os
 import environ
+from celery.schedules import crontab
 
 env = environ.Env()
 
-DEBUG = env.bool('DEBUG')
+#DEBUG = env.bool('DEBUG')
+DEBUG = True
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SECRET_KEY = env('SECRET_KEY')
+#SECRET_KEY = env('SECRET_KEY')
+SECRET_KEY = 'hfuscbkjscbiuu4595hfsjbckscbs'
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 INSTALLED_APPS = [
@@ -64,6 +67,12 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Celery
 CELERY_BROKER_URL = 'redis://localhost:6379'
+CELERY_BEAT_SCHEDULE = {
+    "SendScheduledEmails": {
+        'task': 'core.tasks.send_scheduled_emails',
+        'schedule': 10 #crontab(minute="*/30")  # Every 30 mins
+    }
+}
 
 DATABASES = {
     "default": {
