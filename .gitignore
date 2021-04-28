@@ -147,3 +147,5 @@ cython_debug/
 *.bak
 *.dat
 *.dir
+
+chromedriver.exe
