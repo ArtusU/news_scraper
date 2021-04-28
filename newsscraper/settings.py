@@ -2,6 +2,7 @@ import os
 import environ
 from celery.schedules import crontab
 
+
 env = environ.Env()
 
 #DEBUG = env.bool('DEBUG')
