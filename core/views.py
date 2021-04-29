@@ -1,9 +1,15 @@
 from django.views import generic
-from .models import NewsItem
+from .models import NewsItem, ScrapeRecord
+
+
+class ScrapeRecordListView(generic.ListView):
+    template_name = 'scrape_history.html'
+    model = ScrapeRecord
+    paginate_by = 10
 
 class NewsItemListview(generic.ListView):
     template_name = 'news_item_list.html'
-    paginate_by = 2
+    paginate_by = 10
 
     def get_queryset(self):
         qs = NewsItem.objects.all()

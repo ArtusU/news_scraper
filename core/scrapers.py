@@ -5,8 +5,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
-
-from .models import NewsItem
+from django.utils import timezone
+from .models import NewsItem, ScrapeRecord
 
 def scrape(url):
     options = webdriver.ChromeOptions()
@@ -32,6 +32,10 @@ def scrape(url):
 
     
     try:
+
+        record = ScrapeRecord.objects.create(
+            finish_time=timezone.now()
+        )
         article_elements = browser.find_elements_by_xpath(
         "//div[@class='crayons-story__body']")
 
@@ -74,6 +78,12 @@ def scrape(url):
                             source='Dev.to',
                             publish_date=new_item_date
                         )
+                        
+        record.finish_time = timezone.now()
+        record.finished = True
+        record.save()
+
+
     except:
         pass
         

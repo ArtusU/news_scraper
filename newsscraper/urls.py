@@ -2,11 +2,12 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
-from core.views import NewsItemListview
+from core.views import NewsItemListview, ScrapeRecordListView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', NewsItemListview.as_view(), name='news-item-list'),
+    path('history/', ScrapeRecordListView.as_view(), name='scrape-history'),
     
 ]
 
