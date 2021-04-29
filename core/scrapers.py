@@ -8,6 +8,7 @@ from selenium.common.exceptions import TimeoutException
 from django.utils import timezone
 from .models import NewsItem, ScrapeRecord
 
+
 def scrape(url):
     options = webdriver.ChromeOptions()
     options.add_argument(" - incognito")
@@ -78,7 +79,7 @@ def scrape(url):
                             source='Dev.to',
                             publish_date=new_item_date
                         )
-                        
+
         record.finish_time = timezone.now()
         record.finished = True
         record.save()
